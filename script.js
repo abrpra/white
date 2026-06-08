@@ -3,6 +3,16 @@ const noBtn = document.getElementById('no-btn');
 const questionScreen = document.getElementById('question-screen');
 const successScreen = document.getElementById('success-screen');
 const heartsContainer = document.getElementById('hearts-container');
+const music = document.getElementById('bgMusic');
+
+let musicStarted = false;
+
+function startMusic() {
+  if (musicStarted) return;
+  music.volume = 0.5;
+  music.play().catch(() => {});
+  musicStarted = true;
+}
 
 const noMessages = [
   "Enggak",
@@ -31,8 +41,14 @@ const noMessages = [
 
 let messageIndex = 0;
 
-noBtn.addEventListener('click', handleNoClick);
-yesBtn.addEventListener('click', handleYesClick);
+noBtn.addEventListener('click', () => {
+  startMusic();
+  handleNoClick();
+});
+yesBtn.addEventListener('click', () => {
+  startMusic();
+  handleYesClick();
+});
 
 function handleNoClick() {
   messageIndex = (messageIndex + 1) % noMessages.length;
